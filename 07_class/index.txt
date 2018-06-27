@@ -1,0 +1,7 @@
+test01 - 클래스 정의
+test02 - 인스턴스의 생성
+test03 - constructor
+test04 - 클래스 프로퍼티
+test05 - 호이스팅
+test06 - getter,setter
+test07 - 정적메소드
