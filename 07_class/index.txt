@@ -5,3 +5,4 @@ test04 - 클래스 프로퍼티
 test05 - 호이스팅
 test06 - getter,setter
 test07 - 정적메소드
+test08 - 상속
