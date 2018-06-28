@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Promise example</title>
+</head>
+<body>
+  <h1>Promise example</h1>
+  <script>
+    // 비동기 함수
+    function get(url) {
+      // XMLHttpRequest 객체 생성
+      const xhr = new XMLHttpRequest();
+
+      // 서버 응답 시 호출될 이벤트 핸들러
+      xhr.onreadystatechange = function () {
+        // 서버 응답 완료
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) { // 정상 응답
+            /*
+              비동기식 처리 모델은 처리 완료를 기다리지 않고 즉시 다음 태스크를 실행한다.
+              따라서 비동기 함수 내에서 처리 결과를 반환(또는 전역 변수에의 할당)하면
+              기대한 대로 동작하지 않는다.
+              비동기 함수의 결과에 대한 처리는 함수 내에서 처리해야 한다.
+            */
+            console.log(xhr.response);
+            return xhr.response;
+          } else { // 비정상 응답
+            console.log('Error: ' + xhr.status);
+          }
+        }
+      };
+
+      // 비동기 방식으로 Request 오픈
+      xhr.open('GET', url);
+      // Request 전송
+      xhr.send();
+    }
+
+    const url = 'http://jsonplaceholder.typicode.com/posts/1';
+
+    /*
+      get 함수는 비동기 함수이므로 처리 완료를 기다리지 않고 즉시 다음 태스크를 수행한다.
+      즉, 함수의 실행이 완료하여 함수의 반환값을 받기 이전에 다음 태스크로 진행한다.
+      따라서 res는 undefined이다.
+    */
+    const res = get(url);
+    console.log(res); // undefined
+
+    try {
+    setTimeout(() => { throw 'Error!'; }, 1000);
+    } catch (e) {
+    console.log('에러를 캐치하지 못한다..');
+    console.log(e);
+    }
+  </script>
+</body>
+</html>
